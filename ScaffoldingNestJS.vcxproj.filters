@@ -18,21 +18,19 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="DatabaseManager.cpp">
+    <ClCompile Include="GestorBaseDatos.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="CodeGenerator.cpp">
+    <ClCompile Include="GeneradorCodigo.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="PackageJson.tpl" />
-    <None Include="Main.tpl" />
     <None Include="AppModule.tpl" />
     <None Include="TypeOrmConfig.tpl" />
     <None Include="Entity.tpl" />
     <None Include="CreateDto.tpl" />
-    <None Include="UpdateDto.tpl" />
     <None Include="Module.tpl" />
     <None Include="Service.tpl" />
     <None Include="Controller.tpl" />
@@ -40,22 +38,17 @@
     <None Include="AuthService.tpl" />
     <None Include="JwtStrategy.tpl" />
     <None Include="AuthController.tpl" />
-    <None Include="LoginDto.tpl" />
-    <None Include="TsconfigJson.tpl" />
-    <None Include="TsconfigBuildJson.tpl" />
-    <None Include="NestCliJson.tpl" />
-    <None Include="Eslintrc.tpl" />
-    <None Include="Prettierrc.tpl" />
     <None Include="JwtAuthGuard.tpl" />
+    <None Include="UpdateDto.tpl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Models.hpp">
+    <ClInclude Include="Modelos.hpp">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="DatabaseManager.hpp">
+    <ClInclude Include="GestorBaseDatos.hpp">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="CodeGenerator.hpp">
+    <ClInclude Include="GeneradorCodigo.hpp">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

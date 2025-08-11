@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { typeOrmConfig } from './database/typeorm.config';
-## for module in modules
-import { {{ module.className }} } from './{{ module.folderName }}/{{ module.fileName }}.module';
+## for modulo in modulos
+import { {{ modulo.nombreClaseModulo }} } from './{{ modulo.nombreCarpeta }}/{{ modulo.nombreArchivo }}.module';
 ## endfor
 
 @Module({
@@ -12,8 +12,8 @@ import { {{ module.className }} } from './{{ module.folderName }}/{{ module.file
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(typeOrmConfig),
-## for module in modules
-    {{ module.className }},
+## for modulo in modulos
+    {{ modulo.nombreClaseModulo }},
 ## endfor
   ],
 })

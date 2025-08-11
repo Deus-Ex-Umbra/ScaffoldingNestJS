@@ -1,28 +1,27 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { {{ userModule.serviceName }} } from '../{{ userModule.folderName }}/{{ userModule.fileName }}.service';
-import { {{ userModule.entityName }} } from '../{{ userModule.folderName }}/entities/{{ userModule.fileName }}.entity';
+import { {{ moduloUsuario.nombreClaseServicio }} } from '../{{ moduloUsuario.nombreCarpeta }}/{{ moduloUsuario.nombreArchivo }}.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: {{ userModule.serviceName }},
+    private usuariosService: {{ moduloUsuario.nombreClaseServicio }},
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(nombreemail: string, pass: string): Promise<any> {
-    const user = await this.usersService.findByNombreemail(nombreemail);
-    if (user && (await user.validatePassword(pass))) {
-      const { password, ...result } = user;
-      return result;
+  async validarUsuario({{ moduloUsuario.campo_email }}: string, {{ moduloUsuario.campo_contrasena }}: string): Promise<any> {
+    const usuario = await this.usuariosService.buscarPorIdentificadorUnico({{ moduloUsuario.campo_email }});
+    if (usuario && (await usuario.validarContrasena({{ moduloUsuario.campo_contrasena }}))) {
+      const { {{ moduloUsuario.campo_contrasena }}: _, ...resultado } = usuario;
+      return resultado;
     }
-    throw new UnauthorizedException('Credenciales inválidas');
+    return null;
   }
 
-  async login(user: any) {
-    const payload = { nombreemail: user.nombreemail, sub: user.idUsuario };
+  async login(usuario: any) {
+    const payload = { identificador: usuario.{{ moduloUsuario.campo_email }}, sub: usuario.{{ moduloUsuario.clave_primaria.nombre_camel_case }} };
     return {
-      access_token: this.jwtService.sign(payload),
+      token_de_acceso: this.jwtService.sign(payload),
     };
   }
 }

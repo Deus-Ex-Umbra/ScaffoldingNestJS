@@ -1,44 +1,64 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Create{{ table.className }}Dto } from './dto/create-{{ table.fileName }}.dto';
-import { Update{{ table.className }}Dto } from './dto/update-{{ table.fileName }}.dto';
-import { {{ table.className }} } from './entities/{{ table.fileName }}.entity';
-{{ table.bcryptImport }}
+import { {{ tabla.nombre_clase }} } from './entidades/{{ tabla.nombre_archivo }}.entity';
+import { Crear{{ tabla.nombre_clase }}Dto } from './dto/crear-{{ tabla.nombre_archivo }}.dto';
+import { Actualizar{{ tabla.nombre_clase }}Dto } from './dto/actualizar-{{ tabla.nombre_archivo }}.dto';
+{% if tabla.es_tabla_usuario %}
+import * as bcrypt from 'bcrypt';
+{% endif %}
 
 @Injectable()
-export class {{ table.className }}Service {
+export class {{ tabla.nombre_clase }}Service {
   constructor(
-    @InjectRepository({{ table.className }})
-    private readonly {{ table.camelCaseName }}Repository: Repository<{{ table.className }}>,
+    @InjectRepository({{ tabla.nombre_clase }})
+    private readonly {{ tabla.nombre_variable }}Repositorio: Repository<{{ tabla.nombre_clase }}>,
   ) {}
 
-{{ table.createMethod }}
+{% if tabla.es_tabla_usuario %}
+  async crear(crearDto: Crear{{ tabla.nombre_clase }}Dto): Promise<{{ tabla.nombre_clase }}> {
+    const salt = await bcrypt.genSalt();
+    const contrasenaHasheada = await bcrypt.hash((crearDto as any)[ '{{ tabla.campo_contrasena }}' ], salt);
+    const dtoConHash = { ...crearDto, [ '{{ tabla.campo_contrasena }}' ]: contrasenaHasheada };
+    const nuevoUsuario = this.{{ tabla.nombre_variable }}Repositorio.create(dtoConHash);
+    return this.{{ tabla.nombre_variable }}Repositorio.save(nuevoUsuario);
+  }
+{% else %}
+  crear(crearDto: Crear{{ tabla.nombre_clase }}Dto) {
+    const nuevoRegistro = this.{{ tabla.nombre_variable }}Repositorio.create(crearDto);
+    return this.{{ tabla.nombre_variable }}Repositorio.save(nuevoRegistro);
+  }
+{% endif %}
 
-  findAll() {
-    return this.{{ table.camelCaseName }}Repository.find();
+  obtenerTodos() {
+    return this.{{ tabla.nombre_variable }}Repositorio.find();
   }
 
-  async findOne({{ table.primaryKey.camelCaseName }}: {{ table.primaryKey.tsType }}) {
-    const record = await this.{{ table.camelCaseName }}Repository.findOneBy({ [ '{{ table.primaryKey.camelCaseName }}' ]: {{ table.primaryKey.camelCaseName }} } as any);
-    if (!record) {
-      throw new NotFoundException(`{{ table.className }} con ID #${ {{ table.primaryKey.camelCaseName }} } no encontrado`);
+  async obtenerUnoPorId(id: number) {
+    const registro = await this.{{ tabla.nombre_variable }}Repositorio.findOneBy({ [ '{{ tabla.clave_primaria.nombre_camel_case }}' ]: id } as any);
+    if (!registro) {
+      throw new NotFoundException(`Registro con id ${id} no encontrado.`);
     }
-    return record;
+    return registro;
   }
-{{ table.findByNameMethod }}
+{% if tabla.es_tabla_usuario %}
 
-  async update({{ table.primaryKey.camelCaseName }}: {{ table.primaryKey.tsType }}, update{{ table.className }}Dto: Update{{ table.className }}Dto) {
-    const recordToUpdate = await this.findOne({{ table.primaryKey.camelCaseName }});
-    if (!recordToUpdate) {
-      throw new NotFoundException(`{{ table.className }} con ID #${ {{ table.primaryKey.camelCaseName }} } no encontrado`);
+  async buscarPorIdentificadorUnico(identificador: string): Promise<{{ tabla.nombre_clase }} | undefined> {
+    return this.{{ tabla.nombre_variable }}Repositorio.findOneBy({ [ '{{ tabla.campo_email }}' ]: identificador } as any);
+  }
+{% endif %}
+
+  async actualizar(id: number, actualizarDto: Actualizar{{ tabla.nombre_clase }}Dto) {
+    const registro = await this.obtenerUnoPorId(id);
+    this.{{ tabla.nombre_variable }}Repositorio.merge(registro, actualizarDto);
+    return this.{{ tabla.nombre_variable }}Repositorio.save(registro);
+  }
+
+  async eliminar(id: number) {
+    const resultado = await this.{{ tabla.nombre_variable }}Repositorio.delete(id);
+    if (resultado.affected === 0) {
+        throw new NotFoundException(`Registro con id ${id} no encontrado.`);
     }
-    const updatedRecord = this.{{ table.camelCaseName }}Repository.merge(recordToUpdate, update{{ table.className }}Dto);
-    return this.{{ table.camelCaseName }}Repository.save(updatedRecord);
-  }
-
-  async remove({{ table.primaryKey.camelCaseName }}: {{ table.primaryKey.tsType }}) {
-    const record = await this.findOne({{ table.primaryKey.camelCaseName }});
-    return this.{{ table.camelCaseName }}Repository.remove(record);
+    return { mensaje: `Registro con id ${id} eliminado correctamente.` };
   }
 }

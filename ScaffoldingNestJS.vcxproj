@@ -125,8 +125,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CodeGenerator.cpp" />
-    <ClCompile Include="DatabaseManager.cpp" />
+    <ClCompile Include="GeneradorCodigo.cpp" />
+    <ClCompile Include="GestorBaseDatos.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -137,25 +137,18 @@
     <None Include="Controller.tpl" />
     <None Include="CreateDto.tpl" />
     <None Include="Entity.tpl" />
-    <None Include="Eslintrc.tpl" />
     <None Include="JwtAuthGuard.tpl" />
     <None Include="JwtStrategy.tpl" />
-    <None Include="LoginDto.tpl" />
-    <None Include="Main.tpl" />
     <None Include="Module.tpl" />
-    <None Include="NestCliJson.tpl" />
     <None Include="PackageJson.tpl" />
-    <None Include="Prettierrc.tpl" />
     <None Include="Service.tpl" />
-    <None Include="TsconfigBuildJson.tpl" />
-    <None Include="TsconfigJson.tpl" />
     <None Include="TypeOrmConfig.tpl" />
     <None Include="UpdateDto.tpl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CodeGenerator.hpp" />
-    <ClInclude Include="DatabaseManager.hpp" />
-    <ClInclude Include="Models.hpp" />
+    <ClInclude Include="GeneradorCodigo.hpp" />
+    <ClInclude Include="GestorBaseDatos.hpp" />
+    <ClInclude Include="Modelos.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

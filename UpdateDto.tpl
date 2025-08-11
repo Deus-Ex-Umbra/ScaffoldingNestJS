@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { Create{{ table.className }}Dto } from './create-{{ table.fileName }}.dto';
+import { Crear{{ tabla.nombre_clase }}Dto } from './crear-{{ tabla.nombre_archivo }}.dto';
 
-export class Update{{ table.className }}Dto extends PartialType(Create{{ table.className }}Dto) {}
+export class Actualizar{{ tabla.nombre_clase }}Dto extends PartialType(Crear{{ tabla.nombre_clase }}Dto) {}
