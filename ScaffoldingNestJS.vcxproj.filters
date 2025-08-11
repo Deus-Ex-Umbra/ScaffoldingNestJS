@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="DatabaseManager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="CodeGenerator.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PackageJson.tpl" />
+    <None Include="Main.tpl" />
+    <None Include="AppModule.tpl" />
+    <None Include="TypeOrmConfig.tpl" />
+    <None Include="Entity.tpl" />
+    <None Include="CreateDto.tpl" />
+    <None Include="UpdateDto.tpl" />
+    <None Include="Module.tpl" />
+    <None Include="Service.tpl" />
+    <None Include="Controller.tpl" />
+    <None Include="AuthModule.tpl" />
+    <None Include="AuthService.tpl" />
+    <None Include="JwtStrategy.tpl" />
+    <None Include="AuthController.tpl" />
+    <None Include="LoginDto.tpl" />
+    <None Include="TsconfigJson.tpl" />
+    <None Include="TsconfigBuildJson.tpl" />
+    <None Include="NestCliJson.tpl" />
+    <None Include="Eslintrc.tpl" />
+    <None Include="Prettierrc.tpl" />
+    <None Include="JwtAuthGuard.tpl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Models.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseManager.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeGenerator.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
