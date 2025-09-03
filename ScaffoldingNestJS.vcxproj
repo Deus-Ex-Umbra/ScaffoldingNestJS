@@ -128,6 +128,7 @@
     <ClCompile Include="GeneradorCodigo.cpp" />
     <ClCompile Include="GestorBaseDatos.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="main_antiguo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AppModule.tpl" />

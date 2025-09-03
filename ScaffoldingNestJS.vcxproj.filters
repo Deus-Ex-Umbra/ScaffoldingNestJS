@@ -24,6 +24,9 @@
     <ClCompile Include="GeneradorCodigo.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="main_antiguo.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="PackageJson.tpl" />

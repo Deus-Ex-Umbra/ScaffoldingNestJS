@@ -1,10 +1,9 @@
-#include <iostream>
+/*#include <iostream>
 #include <string>
 #include <vector>
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
-#include <boost/program_options.hpp>
 #include "GestorBaseDatos.hpp"
 #include "GeneradorCodigo.hpp"
 
@@ -26,7 +25,7 @@ void ejecutarComando(const std::string& comando, bool esperar = true) {
     }
 }
 
-void imprimirRutasApi(const std::vector<Tabla>& tablas, const std::string& dir_salida) {
+void imprimirRutasApi(const std::vector<Tabla>& tablas) {
     std::cout << "\n--- Rutas de la API Generadas ---" << std::endl;
     std::cout << "URL Base: http://localhost:3000\n" << std::endl;
 
@@ -52,57 +51,18 @@ void imprimirRutasApi(const std::vector<Tabla>& tablas, const std::string& dir_s
     }
 }
 
-
-int main(int argc, char* argv[]) {
-    namespace po = boost::program_options;
-
-    po::options_description desc("Opciones permitidas para el generador de Scaffolding");
-    desc.add_options()
-        ("help,h", "Produce este mensaje de ayuda")
-        ("host", po::value<std::string>()->default_value("localhost"), "Host de la base de datos")
-        ("port", po::value<std::string>()->default_value("5450"), "Puerto de la base de datos")
-        ("dbname", po::value<std::string>()->default_value("nest_db"), "Nombre de la base de datos")
-        ("user", po::value<std::string>()->default_value("root"), "Usuario de la base de datos")
-        ("password", po::value<std::string>()->default_value("root"), "Contraseña de la base de datos")
-        ("jwt-secret", po::value<std::string>(), "Clave secreta para firmar los JWT")
-        ("out,o", po::value<std::string>()->default_value("api-generada-nest"), "Directorio de salida para el proyecto generado")
-        ;
-
-    po::variables_map vm;
-    try {
-        po::store(po::parse_command_line(argc, argv, desc), vm);
-        po::notify(vm);
-    }
-    catch (const po::error& e) {
-        std::cerr << "ERROR: " << e.what() << std::endl << std::endl;
-        std::cerr << desc << std::endl;
-        return 1;
-    }
-
-
-    if (vm.count("help")) {
-        std::cout << desc << std::endl;
-        return 0;
-    }
-
-    if (!vm.count("jwt-secret")) {
-        std::cerr << "Error: La clave secreta para JWT es obligatoria. Use --jwt-secret <su_clave_aqui>" << std::endl;
-        return 1;
-    }
-
-    const std::string DB_HOST = vm["host"].as<std::string>();
-    const std::string DB_PUERTO = vm["port"].as<std::string>();
-    const std::string DB_NOMBRE = vm["dbname"].as<std::string>();
-    const std::string DB_USUARIO = vm["user"].as<std::string>();
-    const std::string DB_CONTRASENA = vm["password"].as<std::string>();
-    const std::string CLAVE_SECRETA_JWT = vm["jwt-secret"].as<std::string>();
-    const std::string dir_salida = vm["out"].as<std::string>();
-
+int main() {
+    const std::string DB_HOST = "localhost";
+    const std::string DB_PUERTO = "5450";
+    const std::string DB_NOMBRE = "nest_db";
+    const std::string DB_USUARIO = "root";
+    const std::string DB_CONTRASENA = "root";
+    const std::string CLAVE_SECRETA_JWT = "98cafb3039ea4bcfc65bbd8ae6258ceae2e4eb0f827109891514cdf16305d851693e502e93fb602de98c402bcead3d7132ddcb1d5c5aa7639cc5318ff286b4ac";
     std::stringstream ss_conexion;
     ss_conexion << "postgresql://" << DB_USUARIO << ":" << DB_CONTRASENA << "@" << DB_HOST << ":" << DB_PUERTO << "/" << DB_NOMBRE;
     const std::string INFO_CONEXION = ss_conexion.str();
 
-    std::cout << "Intentando conectar con la base de datos en: " << DB_HOST << ":" << DB_PUERTO << std::endl;
+    std::cout << "Intentando conectar con la base de datos en: " << INFO_CONEXION << std::endl;
     GestorBaseDatos gestor_db(INFO_CONEXION);
 
     if (!gestor_db.estaConectado()) {
@@ -117,6 +77,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    const std::string dir_salida = "api-generada-nest";
     GeneradorCodigo generador(dir_salida);
     generador.generarProyectoCompleto(esquema_tablas);
 
@@ -129,11 +90,11 @@ int main(int argc, char* argv[]) {
     ejecutarComando("cd " + dir_salida + " && npm install");
 
     std::cout << "\n--- !Configuracion de la API Completa! ---" << std::endl;
-    imprimirRutasApi(esquema_tablas, dir_salida);
+    imprimirRutasApi(esquema_tablas);
 
     std::cout << "\nIniciando el servidor de desarrollo en una nueva ventana..." << std::endl;
     std::cout << "Puedes detenerlo cerrando la nueva ventana o con Ctrl+C en ella." << std::endl;
     ejecutarComando("cd " + dir_salida + " && npm run start:dev", false);
 
     return 0;
-}
+}*/

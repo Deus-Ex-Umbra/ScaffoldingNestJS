@@ -365,3 +365,4 @@ FodyWeavers.xsd
 # Ignorar: ./nest-api
 nest-api/
 api-generada-nest/
+Scaffold.f17f713f/
